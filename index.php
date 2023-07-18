@@ -50,8 +50,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>Document</title>
 </head>
-<body class="bg-dark">
-      <div class="container">
+<body class="bg-dark text-white">
+    <div class="container">
+        <form action="" method="get" class="mb-4 d-flex align-items-center gap-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="parkingFilter" name="parking">
+                <label class="form-check-label" for="parkingFilter">
+                    Only show hotels with parking
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Filter</button>
+        </form>
+
         <table class="table table-striped mt-5">
             <thead>
                 <tr>
@@ -64,6 +74,11 @@
             </thead>
             <tbody>
                 <?php foreach ($hotels as $hotel) : ?>
+                    <?php
+                        if (isset($_GET['parking']) && !$hotel['parking']) {
+                            continue;
+                        }
+                    ?>
                     <tr>
                         <td><?php echo $hotel['name']; ?></td>
                         <td><?php echo $hotel['description']; ?></td>
